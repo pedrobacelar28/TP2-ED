@@ -1,5 +1,4 @@
 #include "grafo.h"
-#include "vetor.h"
 
 double euclidean_distance(const Clareira& a, const Clareira& b) {
     return sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
@@ -29,19 +28,14 @@ void Grafo::adicionar_portal(int u, int v) {
     portais[u].push_back({v, 0});
 }
 
-Vetor<Clareira>& Grafo::get_clareiras() {
+const Vetor<Clareira>& Grafo::get_clareiras() const {
     return clareiras;
 }
 
-Vetor<Vetor<Caminho>>& Grafo::get_trilhas() {
+const Vetor<Vetor<Caminho>>& Grafo::get_trilhas() const {
     return trilhas;
 }
 
-Vetor<Vetor<Caminho>>& Grafo::get_portais() {
+const Vetor<Vetor<Caminho>>& Grafo::get_portais() const {
     return portais;
 }
-
-// Instanciações explícitas para o template Vetor
-template class Vetor<Clareira>;
-template class Vetor<Caminho>;
-template class Vetor<Vetor<Caminho>>;

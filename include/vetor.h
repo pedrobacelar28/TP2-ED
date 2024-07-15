@@ -8,6 +8,7 @@ class Vetor {
 public:
     Vetor();
     Vetor(int initialSize);
+    Vetor(int initialSize, const T& defaultValue);
     ~Vetor();
     Vetor(const Vetor& other); // Copy constructor
     Vetor& operator=(const Vetor& other); // Copy assignment
@@ -15,7 +16,9 @@ public:
     Vetor& operator=(Vetor&& other) noexcept; // Move assignment
 
     void push_back(const T& value);
+    void pop_back();
     T& operator[](int index);
+    const T& operator[](int index) const;
     int getSize() const;
 
 private:
@@ -27,17 +30,24 @@ private:
 
 template<typename T>
 Vetor<T>::Vetor() : data(new T[2]), size(0), capacity(2) {
-   // std::cout << "Vetor inicializado com capacidade " << capacity << ".\n";
+    // std::cout << "Vetor inicializado com capacidade " << capacity << ".\n";
 }
 
 template<typename T>
 Vetor<T>::Vetor(int initialSize) : data(new T[initialSize > 2 ? initialSize : 2]), size(0), capacity(initialSize > 2 ? initialSize : 2) {
-    //std::cout << "Vetor inicializado com capacidade " << capacity << ".\n";
+    // std::cout << "Vetor inicializado com capacidade " << capacidade << ".\n";
+}
+
+template<typename T>
+Vetor<T>::Vetor(int initialSize, const T& defaultValue) : data(new T[initialSize]), size(initialSize), capacity(initialSize) {
+    for (int i = 0; i < size; ++i) {
+        data[i] = defaultValue;
+    }
 }
 
 template<typename T>
 Vetor<T>::~Vetor() {
-//    std::cout << "Destruindo vetor de capacidade " << capacity << " e tamanho " << size << ".\n";
+    // std::cout << "Destruindo vetor de capacidade " << capacidade << " e tamanho " << size << ".\n";
     delete[] data;
 }
 
@@ -46,7 +56,7 @@ Vetor<T>::Vetor(const Vetor& other) : data(new T[other.capacity]), size(other.si
     for (int i = 0; i < size; ++i) {
         data[i] = other.data[i];
     }
-  //  std::cout << "Copiando vetor de capacidade " << capacity << " e tamanho " << size << ".\n";
+    // std::cout << "Copiando vetor de capacidade " << capacidade << " e tamanho " << size << ".\n";
 }
 
 template<typename T>
@@ -59,7 +69,7 @@ Vetor<T>& Vetor<T>::operator=(const Vetor& other) {
         for (int i = 0; i < size; ++i) {
             data[i] = other.data[i];
         }
-    //    std::cout << "Atribuindo vetor de capacidade " << capacity << " e tamanho " << size << ".\n";
+        // std::cout << "Atribuindo vetor de capacidade " << capacidade << " e tamanho " << size << ".\n";
     }
     return *this;
 }
@@ -69,7 +79,6 @@ Vetor<T>::Vetor(Vetor&& other) noexcept : data(other.data), size(other.size), ca
     other.data = nullptr;
     other.size = 0;
     other.capacity = 0;
-//    std::cout << "Movendo vetor de capacidade " << capacity << " e tamanho " << size << ".\n";
 }
 
 template<typename T>
@@ -82,7 +91,6 @@ Vetor<T>& Vetor<T>::operator=(Vetor&& other) noexcept {
         other.data = nullptr;
         other.size = 0;
         other.capacity = 0;
-  //      std::cout << "Movendo atribuição de vetor de capacidade " << capacity << " e tamanho " << size << ".\n";
     }
     return *this;
 }
@@ -90,21 +98,30 @@ Vetor<T>& Vetor<T>::operator=(Vetor&& other) noexcept {
 template<typename T>
 void Vetor<T>::push_back(const T& value) {
     if (size == capacity) {
-        resize(capacity * 2);
+        resize(2 * capacity);
     }
     data[size++] = value;
-    //std::cout << "Elemento adicionado, novo tamanho: " << size << ".\n";
+}
+
+template<typename T>
+void Vetor<T>::pop_back() {
+    if (size > 0) {
+        --size;
+    }
 }
 
 template<typename T>
 T& Vetor<T>::operator[](int index) {
-//    std::cout << "Acessando elemento no índice " << index << ".\n";
+    return data[index];
+}
+
+template<typename T>
+const T& Vetor<T>::operator[](int index) const {
     return data[index];
 }
 
 template<typename T>
 int Vetor<T>::getSize() const {
-  //  std::cout << "Obtendo tamanho do vetor: " << size << ".\n";
     return size;
 }
 
@@ -117,7 +134,6 @@ void Vetor<T>::resize(int newCapacity) {
     delete[] data;
     data = newData;
     capacity = newCapacity;
-    //std::cout << "Vetor redimensionado para capacidade " << capacity << ".\n";
 }
 
 #endif // VETOR_H

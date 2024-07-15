@@ -24,9 +24,10 @@ public:
     void adicionar_trilha(int u, int v);
     void adicionar_portal(int u, int v);
     
-    Vetor<Clareira>& get_clareiras();
-    Vetor<Vetor<Caminho>>& get_trilhas();
-    Vetor<Vetor<Caminho>>& get_portais();
+    
+    const Vetor<Clareira>& get_clareiras() const;  // Marcar como const
+    const Vetor<Vetor<Caminho>>& get_trilhas() const;  // Marcar como const
+    const Vetor<Vetor<Caminho>>& get_portais() const;  // Marcar como const
 
 private:
     int n;
