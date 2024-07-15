@@ -1,48 +1,18 @@
 #include "grafo.h"
+#include "vetor.h"
 
 double euclidean_distance(const Clareira& a, const Clareira& b) {
-    return sqrt((a.x - b.x) * (a.y - b.y));
+    return sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 }
 
-template<typename T>
-Vetor<T>::Vetor() : size(0), capacity(2) {
-    data = new T[capacity];
-}
-
-template<typename T>
-Vetor<T>::~Vetor() {
-    delete[] data;
-}
-
-template<typename T>
-void Vetor<T>::push_back(const T& value) {
-    if (size == capacity) {
-        capacity *= 2;
-        T* newData = new T[capacity];
-        for (int i = 0; i < size; ++i) {
-            newData[i] = data[i];
-        }
-        delete[] data;
-        data = newData;
-    }
-    data[size++] = value;
-}
-
-template<typename T>
-T& Vetor<T>::operator[](int index) {
-    return data[index];
-}
-
-template<typename T>
-int Vetor<T>::getSize() const {
-    return size;
-}
-
-Grafo::Grafo(int n) : n(n), clareiras(), trilhas(), portais() {
+Grafo::Grafo(int n) : n(n), clareiras(), trilhas(n), portais(n) {
     for (int i = 0; i < n; ++i) {
         trilhas.push_back(Vetor<Caminho>());
         portais.push_back(Vetor<Caminho>());
     }
+}
+
+Grafo::~Grafo() {
 }
 
 void Grafo::adicionar_clareira(double x, double y) {
@@ -71,7 +41,7 @@ Vetor<Vetor<Caminho>>& Grafo::get_portais() {
     return portais;
 }
 
-// Explicitly instantiate templates for the types used in the project
+// Instanciações explícitas para o template Vetor
 template class Vetor<Clareira>;
 template class Vetor<Caminho>;
 template class Vetor<Vetor<Caminho>>;

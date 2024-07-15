@@ -2,6 +2,7 @@
 #define GRAFO_H
 
 #include <cmath>
+#include "vetor.h"
 
 struct Clareira {
     double x, y;
@@ -14,25 +15,10 @@ struct Caminho {
 
 double euclidean_distance(const Clareira& a, const Clareira& b);
 
-template<typename T>
-class Vetor {
-public:
-    Vetor();
-    ~Vetor();
-
-    void push_back(const T& value);
-    T& operator[](int index);
-    int getSize() const;
-
-private:
-    T* data;
-    int size;
-    int capacity;
-};
-
 class Grafo {
 public:
     Grafo(int n);
+    ~Grafo();
     
     void adicionar_clareira(double x, double y);
     void adicionar_trilha(int u, int v);
