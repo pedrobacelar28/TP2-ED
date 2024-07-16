@@ -4,30 +4,36 @@
 #include "vetor.h"
 #include <stdexcept>
 
+// Classe template PriorityQueue para armazenar elementos com prioridades associadas
 template<typename T, typename Priority>
 class PriorityQueue {
 public:
-    PriorityQueue();
-    void push(const T& value, Priority priority);
-    T pop();
-    bool isEmpty() const;
-    void decreaseKey(const T& value, Priority newPriority);
+    PriorityQueue(); // Construtor padrão
+    void push(const T& value, Priority priority); // Adiciona um elemento com prioridade
+    T pop(); // Remove e retorna o elemento com a menor prioridade
+    bool isEmpty() const; // Verifica se a fila está vazia
+    void decreaseKey(const T& value, Priority newPriority); // Diminui a prioridade de um elemento
 
 private:
+    // Estrutura Element para armazenar um valor e sua prioridade
     struct Element {
         T value;
         Priority priority;
     };
 
-    Vetor<Element> data;
-    int findElementIndex(const T& value) const;
-    void heapifyUp(int index);
-    void heapifyDown(int index);
+    Vetor<Element> data; // Vetor para armazenar os elementos
+    int findElementIndex(const T& value) const; // Encontra o índice de um elemento
+    void heapifyUp(int index); // Reorganiza a heap para cima
+    void heapifyDown(int index); // Reorganiza a heap para baixo
 };
 
+// Implementações dos métodos
+
+// Construtor padrão: inicializa a fila de prioridade
 template<typename T, typename Priority>
 PriorityQueue<T, Priority>::PriorityQueue() : data() {}
 
+// Adiciona um elemento com prioridade na fila e reorganiza a heap
 template<typename T, typename Priority>
 void PriorityQueue<T, Priority>::push(const T& value, Priority priority) {
     Element element = {value, priority};
@@ -35,10 +41,11 @@ void PriorityQueue<T, Priority>::push(const T& value, Priority priority) {
     heapifyUp(data.getSize() - 1);
 }
 
+// Remove e retorna o elemento com a menor prioridade da fila
 template<typename T, typename Priority>
 T PriorityQueue<T, Priority>::pop() {
     if (isEmpty()) {
-        throw std::runtime_error("Priority queue is empty");
+        throw std::runtime_error("A fila de prioridade está vazia");
     }
     T minValue = data[0].value;
     data[0] = data[data.getSize() - 1];
@@ -47,24 +54,27 @@ T PriorityQueue<T, Priority>::pop() {
     return minValue;
 }
 
+// Verifica se a fila está vazia
 template<typename T, typename Priority>
 bool PriorityQueue<T, Priority>::isEmpty() const {
     return data.getSize() == 0;
 }
 
+// Diminui a prioridade de um elemento e reorganiza a heap
 template<typename T, typename Priority>
 void PriorityQueue<T, Priority>::decreaseKey(const T& value, Priority newPriority) {
     int index = findElementIndex(value);
     if (index == -1) {
-        throw std::runtime_error("Element not found in the priority queue");
+        throw std::runtime_error("Elemento não encontrado na fila de prioridade");
     }
     if (newPriority > data[index].priority) {
-        throw std::runtime_error("New priority is greater than current priority");
+        throw std::runtime_error("A nova prioridade é maior que a prioridade atual");
     }
     data[index].priority = newPriority;
     heapifyUp(index);
 }
 
+// Encontra o índice de um elemento na fila
 template<typename T, typename Priority>
 int PriorityQueue<T, Priority>::findElementIndex(const T& value) const {
     for (int i = 0; i < data.getSize(); ++i) {
@@ -75,6 +85,7 @@ int PriorityQueue<T, Priority>::findElementIndex(const T& value) const {
     return -1;
 }
 
+// Reorganiza a heap para cima a partir do índice dado
 template<typename T, typename Priority>
 void PriorityQueue<T, Priority>::heapifyUp(int index) {
     while (index > 0) {
@@ -87,6 +98,7 @@ void PriorityQueue<T, Priority>::heapifyUp(int index) {
     }
 }
 
+// Reorganiza a heap para baixo a partir do índice dado
 template<typename T, typename Priority>
 void PriorityQueue<T, Priority>::heapifyDown(int index) {
     int size = data.getSize();
