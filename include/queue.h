@@ -9,7 +9,7 @@ template<typename T, typename Priority>
 class PriorityQueue {
 public:
     PriorityQueue(); // Construtor padrão
-    void push(const T& value, Priority priority); // Adiciona um elemento com prioridade
+    void push(const T& value, Priority priority, int portaisUsados, int maxPortais); // Adiciona um elemento com prioridade
     T pop(); // Remove e retorna o elemento com a menor prioridade
     bool isEmpty() const; // Verifica se a fila está vazia
     void decreaseKey(const T& value, Priority newPriority); // Diminui a prioridade de um elemento
@@ -19,6 +19,7 @@ private:
     struct Element {
         T value;
         Priority priority;
+        int portaisUsados;
     };
 
     Vetor<Element> data; // Vetor para armazenar os elementos
@@ -35,8 +36,11 @@ PriorityQueue<T, Priority>::PriorityQueue() : data() {}
 
 // Adiciona um elemento com prioridade na fila e reorganiza a heap
 template<typename T, typename Priority>
-void PriorityQueue<T, Priority>::push(const T& value, Priority priority) {
-    Element element = {value, priority};
+void PriorityQueue<T, Priority>::push(const T& value, Priority priority, int portaisUsados, int maxPortais) {
+    if (portaisUsados > maxPortais) {
+        return; // Não adiciona o elemento se o número de portais usados for maior que o máximo permitido
+    }
+    Element element = {value, priority, portaisUsados};
     data.push_back(element);
     heapifyUp(data.getSize() - 1);
 }
