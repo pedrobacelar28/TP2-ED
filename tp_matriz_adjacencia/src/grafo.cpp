@@ -50,7 +50,7 @@ const Vetor<Vetor<Caminho>>& Grafo::get_portais() const {
     return portais;
 }
 */
-// Código para Grafo com Matriz de Adjacência
+/// Código para Grafo com Matriz de Adjacência
 
 
 #include "grafo.h"
