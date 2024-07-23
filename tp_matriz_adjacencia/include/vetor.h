@@ -2,7 +2,11 @@
 #define VETOR_H
 
 #include <iostream>
-
+// Classe template PriorityQueue para armazenar elementos com prioridades associadas
+/* Esse arquivo nao esta modularizado por conta do uso de template,quando tentei passar ele pra .cpp ou .tpp
+a compilacao nao rodou, e depois de uma consultas vi que o compilador nao consegue entender os arquivos separadamente
+justamente por conta do template.
+*/
 // Classe template Vetor para armazenar elementos de qualquer tipo T
 template<typename T>
 class Vetor {
