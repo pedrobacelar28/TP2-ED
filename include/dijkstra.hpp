@@ -1,8 +1,9 @@
 #ifndef DIJKSTRA_H
 #define DIJKSTRA_H
 
-#include "grafo.h"
-#include "queue.h"
+#include "grafo.hpp"
+#include "queue.hpp"
+
 #include <limits>
 
 // Classe que implementa o algoritmo de Dijkstra

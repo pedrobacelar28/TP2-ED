@@ -1,4 +1,4 @@
-#include "dijkstra.h"
+#include "dijkstra.hpp"
 
 
 // Implementação do construtor da classe

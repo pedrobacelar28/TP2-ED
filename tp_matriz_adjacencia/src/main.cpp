@@ -1,7 +1,7 @@
 #include <iostream>
-#include "grafo.h"
-#include "dijkstra.h"
-#include "astar.h"
+#include "grafo.hpp"
+#include "dijkstra.hpp"
+#include "astar.hpp"
 
 int main() {
     int n, m, k;

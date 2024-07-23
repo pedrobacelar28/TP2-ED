@@ -1,7 +1,7 @@
 // Código para Grafo com Matriz de Adjacência
 
 
-#include "grafo.h"
+#include "grafo.hpp"
 #include <limits>
 
 // Função para calcular a distância euclidiana entre duas clareiras

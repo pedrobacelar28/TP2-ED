@@ -1,4 +1,4 @@
-#include "astar.h"
+#include "astar.hpp"
 
 // Implementação do construtor da classe
 AStar::AStar(const Grafo& grafo, int maxPortais) : grafo(grafo), maxPortais(maxPortais) {}

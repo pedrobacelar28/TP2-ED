@@ -1,4 +1,4 @@
-#include "grafo.h"
+#include "grafo.hpp"
 
 // Função para calcular a distância euclidiana entre duas clareiras
 double euclidean_distance(const Clareira& a, const Clareira& b) {

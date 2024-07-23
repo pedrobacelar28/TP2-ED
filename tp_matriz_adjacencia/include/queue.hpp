@@ -1,15 +1,13 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-#include "vetor.h"
+#include "vetor.hpp"
 #include <stdexcept>
-
 /* Esse arquivo nao esta modularizado por conta do uso de template,quando tentei passar ele pra .cpp ou .tpp
 a compilacao nao rodou, e depois de uma consultas vi que o compilador nao consegue entender os arquivos separadamente
 justamente por conta do template.
 */
 // Classe template PriorityQueue para armazenar elementos com prioridades associadas
-
 template<typename T, typename Priority>
 class PriorityQueue {
 public:
